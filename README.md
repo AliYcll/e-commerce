@@ -1,16 +1,54 @@
-# React + Vite
+# Bandage E-Commerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Project Status](https://img.shields.io/badge/status-active-success.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-Currently, two official plugins are available:
+A modern, responsive E-commerce front-end application built with **React**, **Vite**, and **Tailwind CSS**. This project features a polished UI with custom assets, responsive grid layouts, and reusable components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- **Responsive Design:** Fully optimized layouts for Mobile, Tablet, and Desktop screens.
+- **Modern UI/UX:** Clean aesthetics, custom icon integration, and hero sliders.
+- **Component-Based:** Modular architecture (Header, HeroSlider, GreenFeatures, Footer, etc.).
+- **Performance:** Powered by Vite for blazing fast development.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework:** [React](https://reactjs.org/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Icons:** Custom PNG Assets & Lucide React
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Getting Started
+
+Follow these steps to set up the project locally:
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/AliYcll/e-commerce.git
+cd e-commerce
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Start the development server
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
+
+## 📸 Screenshots
+
+*(You can add screenshots of your Home Page, Hero Slider, and Responsive Footer here to showcase the project)*
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+---
+
+Made with ❤️ by **Ali Yücel**
