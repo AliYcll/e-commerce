@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Montserrat', sans-serif;
+  --color-primary: #252B42;
+  --color-secondary: #23A6F0;
+  --color-success: #2DC071;
+  --color-alert: #E77C40;
+  --color-danger: #E74040;
+  --color-text-dark: #252B42;
+  --color-text-gray: #737373;
+  --color-text-muted: #BDBDBD;
+  --color-light-bg: #FAFAFA;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--color-text-dark);
+}
+
+/* Custom Container Constraint - Responsive Dynamic Approach */
+.container {
+  width: 76%;
+  /* Ideal for 1920px+ screens (Wide & Premium) */
+  max-width: none !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+}
+
+/* Laptop & Small Desktop (1024px - 1440px) - Fix for cramped navbar */
+@media (max-width: 1440px) {
+  .container {
+    width: 90%;
+  }
+}
+
+/* Tablet & Mobile */
+@media (max-width: 1024px) {
+  .container {
+    width: 95%;
+  }
+}
