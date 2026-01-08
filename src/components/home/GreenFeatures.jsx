@@ -7,10 +7,10 @@ import sliderInactiveIcon from '../../assets/icons/slider-inactive.png';
 
 const GreenFeatures = () => {
     return (
-        <section className="bg-[#23856D] text-white w-full min-h-[700px] flex items-center relative overflow-hidden">
-            <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between h-full pt-16 md:pt-0">
+        <section className="bg-[#23856D] text-white w-full md:min-h-[700px] flex items-center relative overflow-hidden pt-16 md:pt-0 pb-16 md:pb-0">
+            <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between h-full">
                 {/* Content */}
-                <div className="md:w-1/2 flex flex-col gap-[35px] items-center md:items-start text-center md:text-left z-10">
+                <div className="md:w-1/2 flex flex-col gap-[35px] items-center md:items-start text-center md:text-left z-10 mb-8 md:mb-0">
                     <h4 className="text-[20px] font-normal tracking-[0.2px]">SUMMER 2020</h4>
                     <h1 className="text-[40px] md:text-[58px] font-bold leading-[50px] md:leading-[80px] tracking-[0.2px] uppercase">Vita Classic Product</h1>
                     <p className="text-[14px] leading-[20px] tracking-[0.2px] max-w-[341px]">
@@ -24,11 +24,14 @@ const GreenFeatures = () => {
                     </div>
                 </div>
 
-                {/* Image DIV Removed - Using Background Strategy */}
+                {/* Mobile Image (Visible only on mobile, placed below text) */}
+                <div className="md:hidden w-full flex justify-center relative z-10">
+                    <img src={hero2} alt="Vita Classic Product" className="w-[80%] max-w-[400px] object-contain" />
+                </div>
             </div>
 
-            {/* Background Image Container */}
-            <div className="absolute inset-0 z-0">
+            {/* Background Image Container (Desktop Only - Overlay Effect) */}
+            <div className="absolute inset-0 z-0 hidden md:block">
                 <div
                     className="w-full h-full bg-no-repeat bg-contain bg-bottom md:bg-right-bottom lg:pr-48 lg:bg-origin-content"
                     style={{

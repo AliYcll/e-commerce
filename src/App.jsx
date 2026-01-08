@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import HomePage from './pages/HomePage'
+import ShopPage from './pages/ShopPage'
 
 function App() {
   return (
@@ -13,8 +14,7 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/shop">
-          {/* Shop Page Placeholder */}
-          <div>Shop Page (Coming Soon)</div>
+          <ShopPage />
         </Route>
         {/* Other routes can be added here */}
       </Switch>

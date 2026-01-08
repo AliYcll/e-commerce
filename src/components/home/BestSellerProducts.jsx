@@ -20,10 +20,11 @@ const BestSellerProducts = () => {
                     <p className="text-[#737373] text-[14px]">Problems trying to resolve the conflict between</p>
                 </div>
 
-                {/* Product Grid */}
+                {/* Product Grid - Reverted to single column on mobile, but constrained width */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-[30px]">
                     {productImages.map((img, index) => (
-                        <div key={index} className="flex flex-col items-center group cursor-pointer">
+                        /* Card Wrapper with max-width and margin-auto to shrink it on mobile */
+                        <div key={index} className="flex flex-col items-center group cursor-pointer w-full max-w-[300px] mx-auto sm:max-w-none">
                             <div className="w-full aspect-[238/427] md:h-[427px] overflow-hidden mb-6">
                                 <img src={img} alt={`Product ${index + 1}`} className="w-full h-full object-cover object-top transition duration-300 group-hover:scale-105" />
                             </div>
