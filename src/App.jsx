@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import HomePage from './pages/HomePage'
 import ShopPage from './pages/ShopPage'
+import ProductDetailPage from './pages/ProductDetailPage'
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <HomePage />
+        </Route>
+        <Route path="/shop/product/:productId/:productNameSlug">
+          <ProductDetailPage />
         </Route>
         <Route path="/shop">
           <ShopPage />

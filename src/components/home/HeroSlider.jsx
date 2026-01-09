@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import hero1 from '../../assets/images/hero/hero-1.png';
 import heroPreviousIcon from '../../assets/icons/hero-previous-icon.png';
 import heroNextIcon from '../../assets/icons/hero-next-icon.png';
@@ -6,6 +7,8 @@ import sliderActiveIcon from '../../assets/icons/slider-active.png';
 import sliderInactiveIcon from '../../assets/icons/slider-inactive.png';
 
 const HeroSlider = () => {
+    const history = useHistory();
+
     return (
         <section className="relative h-[calc(100vh-148px)] min-h-[500px] lg:min-h-[716px] w-full text-white overflow-hidden">
             <div
@@ -24,7 +27,7 @@ const HeroSlider = () => {
                         <h4 className="text-[20px] font-normal leading-[30px] tracking-[0.2px] text-[#FAFAFA] md:w-[376px]">
                             We know how large objects will act, but things on a small scale.
                         </h4>
-                        <button className="bg-[#2DC071] px-[40px] py-[15px] rounded-[5px] text-white font-bold text-[24px] leading-[32px] hover:bg-[#239a5b] transition">
+                        <button onClick={() => history.push('/shop')} className="bg-[#2DC071] px-[40px] py-[15px] rounded-[5px] text-white font-bold text-[24px] leading-[32px] hover:bg-[#239a5b] transition">
                             SHOP NOW
                         </button>
                     </div>
