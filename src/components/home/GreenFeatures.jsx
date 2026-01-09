@@ -1,9 +1,9 @@
 import React from 'react';
-import hero2 from '../../assets/images/hero/hero-2.png';
-import heroPreviousIcon from '../../assets/icons/hero-previous-icon.png';
-import heroNextIcon from '../../assets/icons/hero-next-icon.png';
-import sliderActiveIcon from '../../assets/icons/slider-active.png';
-import sliderInactiveIcon from '../../assets/icons/slider-inactive.png';
+import hero2 from '../../assets/images/home/hero-slider/hero-2.png';
+import heroPreviousIcon from '../../assets/icons/home/hero-previous-icon.png';
+import heroNextIcon from '../../assets/icons/home/hero-next-icon.png';
+import sliderActiveIcon from '../../assets/icons/home/slider-active.png';
+import sliderInactiveIcon from '../../assets/icons/home/slider-inactive.png';
 
 const GreenFeatures = () => {
     return (

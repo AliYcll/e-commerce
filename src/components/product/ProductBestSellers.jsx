@@ -1,57 +1,39 @@
 import React from 'react';
-import product1 from '../../assets/images/products/product-cover-1.png';
-import product2 from '../../assets/images/products/product-cover-2.png';
-import product3 from '../../assets/images/products/product-cover-3.png';
-import product4 from '../../assets/images/products/product-cover-4.png';
-import product5 from '../../assets/images/products/product-cover-5.png';
-import product6 from '../../assets/images/products/product-cover-6.png';
-import product7 from '../../assets/images/products/product-cover-7.png';
-import product8 from '../../assets/images/products/product-cover-8.png';
+import productCover1 from '../../assets/images/products/product-cover-1.png';
+import productCover2 from '../../assets/images/products/product-cover-2.png';
+import productCover3 from '../../assets/images/products/product-cover-3.png';
+import productCover4 from '../../assets/images/products/product-cover-4.png';
+import productCover5 from '../../assets/images/products/product-cover-5.png';
+import productCover6 from '../../assets/images/products/product-cover-6.png';
+import productCover7 from '../../assets/images/products/product-cover-7.png';
+import productCover8 from '../../assets/images/products/product-cover-8.png';
+import { Link } from 'react-router-dom';
+
+const productImages = [
+    productCover1, productCover2, productCover3, productCover4,
+    productCover5, productCover6, productCover7, productCover8
+];
 
 const ProductBestSellers = () => {
-    // Products using the newly provided images
-    const products = [
-        { img: product1, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-        { img: product2, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-        { img: product3, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-        { img: product4, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-        { img: product5, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-        { img: product6, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-        { img: product7, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-        { img: product8, title: 'Graphic Design', dept: 'English Department', oldPrice: '$16.48', newPrice: '$6.48' },
-    ];
-
     return (
-        <section className="bg-[#FAFAFA] py-12">
+        <section className="py-10 md:py-12 bg-[#FAFAFA]">
             <div className="container mx-auto px-4">
-                {/* Header - Left Aligned & Bordered */}
                 <div className="mb-8 border-b border-[#ECECEC] pb-4">
-                    <h3 className="text-[#252B42] text-[24px] font-bold uppercase tracking-[0.1px]">
-                        BESTSELLER PRODUCTS
-                    </h3>
+                    <h3 className="font-bold text-[24px] text-[#252B42] uppercase">BESTSELLER PRODUCTS</h3>
                 </div>
 
-                {/* Grid */}
+                {/* Product Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-[30px]">
-                    {products.map((product, index) => (
-                        <div key={index} className="flex flex-col bg-white group cursor-pointer shadow-sm hover:shadow-md transition duration-300">
-                            {/* Image Container */}
-                            <div className="w-full aspect-[238/280] overflow-hidden">
-                                <img
-                                    src={product.img}
-                                    alt={product.title}
-                                    className="w-full h-full object-cover object-top transition duration-300 group-hover:scale-105"
-                                />
+                    {productImages.map((img, index) => (
+                        <div key={index} className="flex flex-col items-start bg-white p-4 group cursor-pointer hover:shadow-lg transition duration-300">
+                            <div className="w-full aspect-[239/280] overflow-hidden mb-4 relative">
+                                <img src={img} alt={`Product ${index + 1}`} className="w-full h-full object-cover transition duration-300 group-hover:scale-105" />
                             </div>
-
-                            {/* Card Content */}
-                            <div className="p-6 flex flex-col items-start gap-[10px]">
-                                <h5 className="text-[#252B42] text-[16px] font-bold">{product.title}</h5>
-                                <p className="text-[#737373] text-[14px] font-bold">{product.dept}</p>
-                                <div className="flex items-center gap-[5px] px-[3px] py-[5px]">
-                                    <span className="text-[#BDBDBD] text-[16px] font-bold line-through">{product.oldPrice}</span>
-                                    <span className="text-[#23856D] text-[16px] font-bold">{product.newPrice}</span>
-                                </div>
+                            <h5 className="font-bold text-[16px] text-[#252B42] mb-1">Graphic Design</h5>
+                            <p className="font-bold text-[14px] text-[#737373] mb-2">English Department</p>
+                            <div className="flex gap-2 font-bold mb-3">
+                                <span className="text-[#BDBDBD]">$16.48</span>
+                                <span className="text-[#23856D]">$6.48</span>
                             </div>
                         </div>
                     ))}

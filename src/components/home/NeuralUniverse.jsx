@@ -1,5 +1,5 @@
 import React from 'react';
-import couple from '../../assets/images/misc/couple.png';
+import couple from '../../assets/images/home/neural-universe/couple.png';
 
 const NeuralUniverse = () => {
     return (

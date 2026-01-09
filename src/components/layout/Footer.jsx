@@ -1,7 +1,7 @@
 import React from 'react';
-import footerFacebookIcon from '../../assets/icons/footer-facebook.png';
-import footerInstagramIcon from '../../assets/icons/footer-instagram.png';
-import footerTwitterIcon from '../../assets/icons/footer-twitter.png';
+import footerFacebookIcon from '../../assets/icons/footer/footer-facebook.png';
+import footerInstagramIcon from '../../assets/icons/footer/footer-instagram.png';
+import footerTwitterIcon from '../../assets/icons/footer/footer-twitter.png';
 
 const Footer = () => {
     return (

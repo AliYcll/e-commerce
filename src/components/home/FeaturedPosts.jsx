@@ -1,10 +1,10 @@
 import React from 'react';
-import post1 from '../../assets/images/blog/post-1.png';
-import post2 from '../../assets/images/blog/post-2.png';
-import post3 from '../../assets/images/blog/post-3.png';
-import postDateIcon from '../../assets/icons/post-date-icon.png';
-import postCommentsIcon from '../../assets/icons/post-comments-icon.png';
-import postArrowIcon from '../../assets/icons/post-arrow-icon.png';
+import post1 from '../../assets/images/home/featured-posts/post-1.png';
+import post2 from '../../assets/images/home/featured-posts/post-2.png';
+import post3 from '../../assets/images/home/featured-posts/post-3.png';
+import postDateIcon from '../../assets/icons/post/post-date-icon.png';
+import postCommentsIcon from '../../assets/icons/post/post-comments-icon.png';
+import postArrowIcon from '../../assets/icons/post/post-arrow-icon.png';
 
 const blogPosts = [
     { id: 1, image: post1, title: "Loudest à la Madison #1 (L'integral)" },

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import hero1 from '../../assets/images/hero/hero-1.png';
-import heroPreviousIcon from '../../assets/icons/hero-previous-icon.png';
-import heroNextIcon from '../../assets/icons/hero-next-icon.png';
-import sliderActiveIcon from '../../assets/icons/slider-active.png';
-import sliderInactiveIcon from '../../assets/icons/slider-inactive.png';
+import hero1 from '../../assets/images/home/hero-slider/hero-1.png';
+import heroPreviousIcon from '../../assets/icons/home/hero-previous-icon.png';
+import heroNextIcon from '../../assets/icons/home/hero-next-icon.png';
+import sliderActiveIcon from '../../assets/icons/home/slider-active.png';
+import sliderInactiveIcon from '../../assets/icons/home/slider-inactive.png';
 
 const HeroSlider = () => {
     const history = useHistory();

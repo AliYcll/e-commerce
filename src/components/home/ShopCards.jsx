@@ -1,8 +1,8 @@
 import React from 'react';
-import cardMen from '../../assets/images/home/card-men.png';
-import cardWomen from '../../assets/images/home/card-women.png';
-import cardAccessories from '../../assets/images/home/card-accessories.png';
-import cardKids from '../../assets/images/home/card-kids.png';
+import cardMen from '../../assets/images/home/shop-cards/card-men.png';
+import cardWomen from '../../assets/images/home/shop-cards/card-women.png';
+import cardAccessories from '../../assets/images/home/shop-cards/card-accessories.png';
+import cardKids from '../../assets/images/home/shop-cards/card-kids.png';
 
 const ShopCards = () => {
     return (

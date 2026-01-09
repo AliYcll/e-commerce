@@ -1,11 +1,11 @@
 import React from 'react';
 
 // Images
-import cat1 from '../../assets/images/shop/cat-1.png';
-import cat2 from '../../assets/images/shop/cat-2.png';
-import cat3 from '../../assets/images/shop/cat-3.png';
-import cat4 from '../../assets/images/shop/cat-4.png';
-import cat5 from '../../assets/images/shop/cat-5.png';
+import cat1 from '../../assets/images/shop/categories/cat-1.png';
+import cat2 from '../../assets/images/shop/categories/cat-2.png';
+import cat3 from '../../assets/images/shop/categories/cat-3.png';
+import cat4 from '../../assets/images/shop/categories/cat-4.png';
+import cat5 from '../../assets/images/shop/categories/cat-5.png';
 
 const categories = [
     {

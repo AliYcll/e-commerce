@@ -5,6 +5,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import HomePage from './pages/HomePage'
 import ShopPage from './pages/ShopPage'
 import ProductDetailPage from './pages/ProductDetailPage'
+import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
+import PricingPage from './pages/PricingPage'
+import TeamPage from './pages/TeamPage'
 
 function App() {
   return (
@@ -19,6 +23,18 @@ function App() {
         </Route>
         <Route path="/shop">
           <ShopPage />
+        </Route>
+        <Route path="/about">
+          <AboutPage />
+        </Route>
+        <Route path="/contact">
+          <ContactPage />
+        </Route>
+        <Route path="/pricing">
+          <PricingPage />
+        </Route>
+        <Route path="/team">
+          <TeamPage />
         </Route>
         {/* Other routes can be added here */}
       </Switch>
