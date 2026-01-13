@@ -3,21 +3,39 @@
 ![Project Status](https://img.shields.io/badge/status-active-success.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-A modern, responsive E-commerce front-end application built with **React**, **Vite**, and **Tailwind CSS**. This project features a polished UI with custom assets, responsive grid layouts, and reusable components.
+A modern, responsive full-featured E-commerce application built with **React**, **Redux**, and **Tailwind CSS**. This project features a robust shopping cart with persistence, user authentication flows, and a polished UI component library.
 
 ## 🚀 Features
 
-- **Responsive Design:** Fully optimized layouts for Mobile, Tablet, and Desktop screens.
-- **Modern UI/UX:** Clean aesthetics, custom icon integration, and hero sliders.
-- **Component-Based:** Modular architecture (Header, HeroSlider, GreenFeatures, Footer, etc.).
-- **Performance:** Powered by Vite for blazing fast development.
+- **Responsive Design:** Mobile-first approach ensuring perfect layout on all devices (Mobile, Tablet, Desktop).
+- **State Management:** Centralized state using **Redux** with **Redux Thunk** for asynchronous operations.
+- **Shopping Cart:** 
+  - Persistent cart state using LocalStorage.
+  - Manual quantity input with validation (1-9999).
+  - Real-time total calculation.
+- **Product Management:** dynamic product listing, detail pages, and category filtering.
+- **Modern UI/UX:** 
+  - Custom component library (Header, HeroSlider, InfiniteClients, etc.).
+  - Interactive UI elements with **Lucide React** icons.
+  - Toast notifications via **React Toastify**.
+- **Forms:** Form handling and validation using **React Hook Form**.
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [React](https://reactjs.org/)
+### Core
+- **Framework:** [React 19](https://reactjs.org/)
 - **Build Tool:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Icons:** Custom PNG Assets & Lucide React
+- **Routing:** [React Router DOM v5](https://v5.reactrouter.com/)
+
+### State Management & Data
+- **Redux:** [Redux](https://redux.js.org/) & [React Redux](https://react-redux.js.org/)
+- **Middleware:** Redux Thunk & Redux Logger
+- **HTTP Client:** [Axios](https://axios-http.com/)
+
+### Styling & UI
+- **CSS Framework:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Notifications:** [React Toastify](https://fkhadra.github.io/react-toastify/)
 
 ## 📦 Getting Started
 
@@ -40,10 +58,6 @@ npm run dev
 ```
 
 The app will be available at `http://localhost:5173`.
-
-## 📸 Screenshots
-
-*(You can add screenshots of your Home Page, Hero Slider, and Responsive Footer here to showcase the project)*
 
 ## 🤝 Contributing
 
