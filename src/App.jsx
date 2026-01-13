@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import HomePage from './pages/HomePage'
 import ShopPage from './pages/ShopPage'
 import ProductDetailPage from './pages/ProductDetailPage'
+import CartPage from './pages/CartPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import PricingPage from './pages/PricingPage'
@@ -42,6 +43,9 @@ function App() {
         </Route>
         <Route path="/shop">
           <ShopPage />
+        </Route>
+        <Route path="/cart">
+          <CartPage />
         </Route>
         <Route path="/product">
           <ProductPage />

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { ChevronLeft, ChevronRight, Star, Heart, ShoppingCart, Eye } from 'lucide-react';
+import { addToCart } from '../../store/actions/shoppingCartActions';
 import singleProductMain from '../../assets/images/products/single-product-main.png';
 import singleProductThumb1 from '../../assets/images/products/single-product-thumb-1.jpg';
 import singleProductThumb2 from '../../assets/images/products/single-product-thumb-2.jpg';
@@ -11,6 +13,7 @@ const ProductOverview = ({ product }) => {
         ? product.images.map(img => img.url)
         : [product?.image || singleProductMain];
 
+    const dispatch = useDispatch();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const nextImage = () => {
@@ -115,8 +118,11 @@ const ProductOverview = ({ product }) => {
 
                         {/* Actions */}
                         <div className="flex items-center gap-2">
-                            <button className="bg-[#23A6F0] text-white py-[10px] px-[20px] rounded-[5px] font-bold text-[14px] hover:bg-[#1a8cd8] transition">
-                                Select Options
+                            <button
+                                onClick={() => dispatch(addToCart(product))}
+                                className="bg-[#23A6F0] text-white py-[10px] px-[20px] rounded-[5px] font-bold text-[14px] hover:bg-[#1a8cd8] transition"
+                            >
+                                Add to Cart
                             </button>
                             <button className="w-[40px] h-[40px] rounded-full border border-[#E8E8E8] bg-white flex items-center justify-center hover:bg-gray-50 transition text-[#252B42]">
                                 <Heart size={20} />

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import md5 from 'md5';
 import UserDropdown from './UserDropdown';
 import ShopDropdown from './ShopDropdown';
+import CartDropdown from '../shop/cart/CartDropdown';
 
 // Import custom PNG icons for mobile menu nav toggle
 import mobileMenuIcon from '../../assets/icons/header/mobile-nav-menu.png';
@@ -24,7 +25,7 @@ const Header = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.client.user);
-    const useSimpleMenu = ['/team', '/pricing', '/contact', '/about'].includes(location.pathname);
+    const useSimpleMenu = ['/team', '/pricing', '/contact', '/about', '/cart'].includes(location.pathname);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -135,10 +136,7 @@ const Header = () => {
                                     </div>
                                 )}
                                 <Search size={16} className="cursor-pointer hover:text-[#1a8cd8]" />
-                                <div className="flex items-center gap-1 cursor-pointer hover:text-[#1a8cd8]">
-                                    <ShoppingCart size={16} />
-                                    <span>1</span>
-                                </div>
+                                <CartDropdown />
                                 <div className="flex items-center gap-1 cursor-pointer hover:text-[#1a8cd8]">
                                     <Heart size={16} />
                                     <span>1</span>

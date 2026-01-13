@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import clientReducer from './clientReducer';
 import productReducer from './productReducer';
-import shoppingCartReducer from './shoppingCartReducer';
+import { shoppingCartReducer } from './shoppingCartReducer';
 
 const rootReducer = combineReducers({
     client: clientReducer,
