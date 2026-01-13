@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Search, ShoppingCart, User, Heart } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import md5 from 'md5';
+import UserDropdown from './UserDropdown';
 
 // Import custom PNG icons for mobile menu nav toggle
 import mobileMenuIcon from '../../assets/icons/header/mobile-nav-menu.png';
@@ -17,11 +20,21 @@ import socialTwitter from '../../assets/icons/header/social-twitter.png';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.client.user);
     const useSimpleMenu = ['/team', '/pricing', '/contact', '/about'].includes(location.pathname);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const handleLogout = () => {
+        dispatch(logoutUser());
+        setIsMenuOpen(false);
+        history.push('/');
+    };
+
 
     // Lock body scroll when menu is open to prevent background scrolling
     useEffect(() => {
@@ -94,22 +107,32 @@ const Header = () => {
                     <div className="hidden md:flex items-center gap-6 text-[#23A6F0] font-bold text-sm">
                         {useSimpleMenu ? (
                             <div className="flex items-center gap-[45px]">
-                                <Link to="/login" className="hover:text-[#1a8cd8]">Login</Link>
-                                <Link to="/register" className="bg-[#23A6F0] text-white px-[25px] py-[15px] rounded-[5px] flex items-center gap-[15px] hover:bg-[#1a8cd8] transition-colors">
-                                    Become a member
-                                    <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7.375 1.375L11 5M11 5L7.375 8.625M11 5H1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                </Link>
+                                {user.name ? (
+                                    <UserDropdown />
+                                ) : (
+                                    <>
+                                        <Link to="/login" className="hover:text-[#1a8cd8]">Login</Link>
+                                        <Link to="/signup" className="bg-[#23A6F0] text-white px-[25px] py-[15px] rounded-[5px] flex items-center gap-[15px] hover:bg-[#1a8cd8] transition-colors">
+                                            Become a member
+                                            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.375 1.375L11 5M11 5L7.375 8.625M11 5H1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         ) : (
                             <>
-                                <div className="flex items-center gap-2 cursor-pointer text-[#23A6F0]">
-                                    <User size={16} />
-                                    <Link to="/login" className="hover:text-[#1a8cd8]">Login</Link>
-                                    <span>/</span>
-                                    <Link to="/signup" className="hover:text-[#1a8cd8]">Register</Link>
-                                </div>
+                                {user.name ? (
+                                    <UserDropdown />
+                                ) : (
+                                    <div className="flex items-center gap-2 cursor-pointer text-[#23A6F0]">
+                                        <User size={16} />
+                                        <Link to="/login" className="hover:text-[#1a8cd8]">Login</Link>
+                                        <span>/</span>
+                                        <Link to="/signup" className="hover:text-[#1a8cd8]">Register</Link>
+                                    </div>
+                                )}
                                 <Search size={16} className="cursor-pointer hover:text-[#1a8cd8]" />
                                 <div className="flex items-center gap-1 cursor-pointer hover:text-[#1a8cd8]">
                                     <ShoppingCart size={16} />
@@ -125,9 +148,17 @@ const Header = () => {
 
                     {/* Mobile Menu Toggle */}
                     <div className="md:hidden flex items-center gap-6">
-                        <button className="text-[#252B42] hover:text-[#737373]">
-                            <img src={mobileMenuUser} alt="User" className="w-[24px] h-auto" />
-                        </button>
+                        {user.name ? (
+                            <UserDropdown
+                                trigger={
+                                    <img src={mobileMenuUser} alt="User" className="w-[24px] h-auto" />
+                                }
+                            />
+                        ) : (
+                            <Link to="/login" className="text-[#252B42] hover:text-[#737373]">
+                                <img src={mobileMenuUser} alt="User" className="w-[24px] h-auto" />
+                            </Link>
+                        )}
                         <button className="text-[#252B42] hover:text-[#737373]">
                             <img src={mobileMenuSearch} alt="Search" className="w-[24px] h-auto" />
                         </button>
@@ -166,12 +197,31 @@ const Header = () => {
                                 </nav>
 
                                 <div className="flex flex-col items-center gap-6 w-full text-[#23A6F0] mt-4">
-                                    <div className="flex items-center gap-2 text-2xl sm:text-[30px] font-normal cursor-pointer">
-                                        <User size={30} />
-                                        <Link to="/login" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Login</Link>
-                                        <span>/</span>
-                                        <Link to="/signup" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Register</Link>
-                                    </div>
+                                    {user.name ? (
+                                        <div className="flex flex-col items-center gap-4">
+                                            <div className="flex items-center gap-2 text-2xl sm:text-[30px] font-normal cursor-pointer">
+                                                <img
+                                                    src={`https://www.gravatar.com/avatar/${md5(user.email)}`}
+                                                    alt={user.name}
+                                                    className="w-10 h-10 rounded-full"
+                                                />
+                                                <span>{user.name}</span>
+                                            </div>
+                                            <button
+                                                onClick={handleLogout}
+                                                className="text-[#737373] hover:text-red-500 text-lg font-medium"
+                                            >
+                                                Logout
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center gap-2 text-2xl sm:text-[30px] font-normal cursor-pointer">
+                                            <User size={30} />
+                                            <Link to="/login" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Login</Link>
+                                            <span>/</span>
+                                            <Link to="/signup" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Register</Link>
+                                        </div>
+                                    )}
                                     <div className="flex flex-col items-center gap-6 mt-2">
                                         <Search size={30} className="cursor-pointer" />
                                         <div className="flex items-center gap-1 cursor-pointer">

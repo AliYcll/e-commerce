@@ -1,14 +1,11 @@
-import { legacy_createStore as createStore, applyMiddleware, combineReducers } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import { thunk } from 'redux-thunk';
+import logger from 'redux-logger';
+import rootReducer from './reducers';
 
-// Şimdilik boş bir reducer, daha sonra gerçek reducer'lar eklenecek
-const initialReducer = (state = {}, action) => {
-    return state;
-};
+const middleware = [thunk, logger];
 
-const rootReducer = combineReducers({
-    // Reducer'lar buraya eklenecek
-    app: initialReducer,
-});
-
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = createStore(
+    rootReducer,
+    applyMiddleware(...middleware)
+);

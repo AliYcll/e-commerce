@@ -1,0 +1,27 @@
+// Initial State
+const initialState = {
+    cart: [],
+    payment: {},
+    address: {}
+};
+
+// Action Types
+export const SET_CART = 'SET_CART';
+export const SET_PAYMENT = 'SET_PAYMENT';
+export const SET_ADDRESS = 'SET_ADDRESS';
+
+// Reducer
+const shoppingCartReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case SET_CART:
+            return { ...state, cart: action.payload };
+        case SET_PAYMENT:
+            return { ...state, payment: action.payload };
+        case SET_ADDRESS:
+            return { ...state, address: action.payload };
+        default:
+            return state;
+    }
+};
+
+export default shoppingCartReducer;
