@@ -55,7 +55,7 @@ function App() {
         <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path="/register">
+        <Route path="/signup">
           <RegisterPage />
         </Route>
         {/* Other routes can be added here */}

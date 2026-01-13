@@ -108,7 +108,7 @@ const Header = () => {
                                     <User size={16} />
                                     <Link to="/login" className="hover:text-[#1a8cd8]">Login</Link>
                                     <span>/</span>
-                                    <Link to="/register" className="hover:text-[#1a8cd8]">Register</Link>
+                                    <Link to="/signup" className="hover:text-[#1a8cd8]">Register</Link>
                                 </div>
                                 <Search size={16} className="cursor-pointer hover:text-[#1a8cd8]" />
                                 <div className="flex items-center gap-1 cursor-pointer hover:text-[#1a8cd8]">
@@ -170,7 +170,7 @@ const Header = () => {
                                         <User size={30} />
                                         <Link to="/login" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Login</Link>
                                         <span>/</span>
-                                        <Link to="/register" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Register</Link>
+                                        <Link to="/signup" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Register</Link>
                                     </div>
                                     <div className="flex flex-col items-center gap-6 mt-2">
                                         <Search size={30} className="cursor-pointer" />
