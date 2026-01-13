@@ -197,24 +197,7 @@ const Header = () => {
                                 </nav>
 
                                 <div className="flex flex-col items-center gap-6 w-full text-[#23A6F0] mt-4">
-                                    {user.name ? (
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div className="flex items-center gap-2 text-2xl sm:text-[30px] font-normal cursor-pointer">
-                                                <img
-                                                    src={`https://www.gravatar.com/avatar/${md5(user.email)}`}
-                                                    alt={user.name}
-                                                    className="w-10 h-10 rounded-full"
-                                                />
-                                                <span>{user.name}</span>
-                                            </div>
-                                            <button
-                                                onClick={handleLogout}
-                                                className="text-[#737373] hover:text-red-500 text-lg font-medium"
-                                            >
-                                                Logout
-                                            </button>
-                                        </div>
-                                    ) : (
+                                    {user.name ? null : (
                                         <div className="flex items-center gap-2 text-2xl sm:text-[30px] font-normal cursor-pointer">
                                             <User size={30} />
                                             <Link to="/login" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Login</Link>

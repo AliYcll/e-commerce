@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
-      <ToastContainer />
+      <ToastContainer autoClose={1500} />
       <Switch>
         <Route exact path="/">
           <HomePage />

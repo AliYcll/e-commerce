@@ -16,7 +16,7 @@ const LoginPage = () => {
         dispatch(loginUser(data))
             .then(() => {
                 toast.success("Welcome back!");
-                history.goBack(); // Redirect to previous page
+                history.push('/'); // Redirect to Home page
             })
             .catch((err) => {
                 console.error("Login failed:", err);
