@@ -1,64 +1,44 @@
-import React from 'react';
-
-// Images
-import cat1 from '../../assets/images/shop/categories/cat-1.png';
-import cat2 from '../../assets/images/shop/categories/cat-2.png';
-import cat3 from '../../assets/images/shop/categories/cat-3.png';
-import cat4 from '../../assets/images/shop/categories/cat-4.png';
-import cat5 from '../../assets/images/shop/categories/cat-5.png';
-
-const categories = [
-    {
-        id: 1,
-        title: 'CLOTHS',
-        count: '5 Items',
-        image: cat1
-    },
-    {
-        id: 2,
-        title: 'CLOTHS',
-        count: '5 Items',
-        image: cat2
-    },
-    {
-        id: 3,
-        title: 'CLOTHS',
-        count: '5 Items',
-        image: cat3
-    },
-    {
-        id: 4,
-        title: 'CLOTHS',
-        count: '5 Items',
-        image: cat4
-    },
-    {
-        id: 5,
-        title: 'CLOTHS',
-        count: '5 Items',
-        image: cat5
-    },
-];
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const ShopCategories = () => {
+    const categories = useSelector(state => state.product.categories);
+
+    // Sort by rating (descending) and take top 5
+    const topCategories = [...categories]
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 5);
+
+    const generateLink = (category) => {
+        const genderCode = category.code?.split(':')[0];
+        const genderSlug = genderCode === 'k' ? 'kadin' : 'erkek';
+        const categorySlug = category.code?.split(':')[1] || category.title.toLowerCase();
+
+        return `/shop/${genderSlug}/${categorySlug}/${category.id}`;
+    };
+
     return (
         <div className="bg-[#FAFAFA] pb-12">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                    {categories.map((cat) => (
-                        <div key={cat.id} className="relative aspect-square md:aspect-[205/223] overflow-hidden group cursor-pointer">
+                    {topCategories.map((cat) => (
+                        <Link
+                            key={cat.id}
+                            to={generateLink(cat)}
+                            className="relative aspect-square md:aspect-[205/223] overflow-hidden group cursor-pointer block"
+                        >
                             {/* Background Image */}
                             <div
                                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                                style={{ backgroundImage: `url(${cat.image})` }}
+                                style={{ backgroundImage: `url(${cat.img})` }}
                             />
 
                             {/* Content */}
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
-                                <h5 className="font-bold text-base mb-2">{cat.title}</h5>
-                                <p className="text-sm font-normal">{cat.count}</p>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10 bg-black/20 group-hover:bg-black/30 transition-colors">
+                                <h5 className="font-bold text-base mb-2 uppercase tracking-wide">{cat.title}</h5>
+                                <p className="text-sm font-normal">Rating: {cat.rating}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

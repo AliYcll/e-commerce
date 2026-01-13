@@ -19,12 +19,14 @@ import ScrollToTop from './components/common/ScrollToTop'
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { verifyToken } from './store/actions/clientActions';
+import { fetchCategories } from './store/actions/productActions';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(verifyToken());
+    dispatch(fetchCategories());
   }, [dispatch]);
 
   return (

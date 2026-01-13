@@ -4,6 +4,7 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import md5 from 'md5';
 import UserDropdown from './UserDropdown';
+import ShopDropdown from './ShopDropdown';
 
 // Import custom PNG icons for mobile menu nav toggle
 import mobileMenuIcon from '../../assets/icons/header/mobile-nav-menu.png';
@@ -94,7 +95,7 @@ const Header = () => {
                         ) : (
                             <>
                                 <Link to="/" className="hover:text-[#252B42]">Home</Link>
-                                <Link to="/shop" className="hover:text-[#252B42]">Shop</Link>
+                                <ShopDropdown />
                                 <Link to="/about" className="hover:text-[#252B42]">About</Link>
                                 <Link to="/blog" className="hover:text-[#252B42]">Blog</Link>
                                 <Link to="/contact" className="hover:text-[#252B42]">Contact</Link>
