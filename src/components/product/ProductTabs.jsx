@@ -1,7 +1,7 @@
 import React from 'react';
 import descriptionImage from '../../assets/images/products/product-desc-1.png';
 
-const ProductTabs = () => {
+const ProductTabs = ({ product }) => {
     return (
         <div className="bg-white pb-12">
             {/* Tabs Header */}
@@ -9,7 +9,7 @@ const ProductTabs = () => {
                 <div className="flex justify-center gap-4 md:gap-8 text-[#737373] text-[14px] font-bold py-6">
                     <span className="cursor-pointer hover:text-[#252B42] text-[#737373]">Description</span>
                     <span className="cursor-pointer hover:text-[#252B42]">Additional Information</span>
-                    <span className="cursor-pointer hover:text-[#252B42]">Reviews <span className="text-[#23856D]">(0)</span></span>
+                    <span className="cursor-pointer hover:text-[#252B42]">Reviews <span className="text-[#23856D]">({product?.sell_count || 0})</span></span>
                 </div>
             </div>
 
@@ -23,9 +23,9 @@ const ProductTabs = () => {
 
                     {/* Text Column */}
                     <div className="md:w-1/3 flex flex-col gap-4">
-                        <h3 className="text-[#252B42] text-[24px] font-bold">the quick fox jumps over</h3>
+                        <h3 className="text-[#252B42] text-[24px] font-bold">{product?.name}</h3>
                         <p className="text-[#737373] text-[14px] leading-[20px]">
-                            Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.
+                            {product?.description}
                         </p>
                         <p className="text-[#737373] text-[14px] leading-[20px] border-l-4 border-[#23856D] pl-4">
                             Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.

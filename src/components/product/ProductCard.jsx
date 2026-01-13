@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ProductCard = ({ product }) => {
+    const { categories } = useSelector(state => state.product);
+
     // Helper to generic URL-friendly slug
     const slugify = (text) => {
         return text
@@ -17,6 +20,11 @@ const ProductCard = ({ product }) => {
     const title = product.name || product.title || "Product";
     const slug = slugify(title);
 
+    // Find category to get code (gender) and title
+    const category = categories.find(c => c.id === product.category_id);
+    const gender = category ? (category.code.startsWith('k') ? 'kadin' : 'erkek') : 'genel';
+    const categoryName = category ? slugify(category.title) : 'kategori';
+
     // Handle image mapping (API returns images array, static data used image string)
     const image = product.images && product.images.length > 0 ? product.images[0].url : (product.image || "");
 
@@ -30,7 +38,7 @@ const ProductCard = ({ product }) => {
     const newPrice = product.newPrice || price.toFixed(2);
 
     return (
-        <Link to={`/shop/product/${product.id}/${slug}`} className="block h-full">
+        <Link to={`/shop/${gender}/${categoryName}/${product.category_id}/${slug}/${product.id}`} className="block h-full">
             <div className="flex flex-col items-center p-4">
                 {/* Image Container */}
                 <div className="w-full relative aspect-[239/300] overflow-hidden mb-6 cursor-pointer group">

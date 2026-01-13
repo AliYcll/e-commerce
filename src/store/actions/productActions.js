@@ -8,6 +8,7 @@ import {
     SET_OFFSET,
     SET_FILTER,
     SET_SORT,
+    SET_ACTIVE_PRODUCT,
     FetchState
 } from '../reducers/productReducer';
 
@@ -19,6 +20,20 @@ export const setLimit = (limit) => ({ type: SET_LIMIT, payload: limit });
 export const setOffset = (offset) => ({ type: SET_OFFSET, payload: offset });
 export const setFilter = (filter) => ({ type: SET_FILTER, payload: filter });
 export const setSort = (sort) => ({ type: SET_SORT, payload: sort });
+export const setActiveProduct = (product) => ({ type: SET_ACTIVE_PRODUCT, payload: product });
+
+export const fetchProduct = (productId) => (dispatch) => {
+    dispatch(setFetchState(FetchState.FETCHING));
+    axiosInstance.get(`/products/${productId}`)
+        .then(res => {
+            dispatch(setActiveProduct(res.data));
+            dispatch(setFetchState(FetchState.FETCHED));
+        })
+        .catch(err => {
+            console.error("Error fetching product:", err);
+            dispatch(setFetchState(FetchState.FAILED));
+        });
+};
 
 export const fetchCategories = () => (dispatch, getState) => {
     const { product } = getState();

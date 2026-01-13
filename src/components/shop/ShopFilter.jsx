@@ -1,46 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ChevronDown, LayoutGrid, ListCheck, Search } from 'lucide-react';
-import { setFilter, setSort, fetchProducts } from '../../store/actions/productActions';
-import { useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const ShopFilter = () => {
-    const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
     const { filter, sort, total } = useSelector(state => state.product);
-    const { categoryId } = useParams();
-
-    // Local state for filter input to debounce or wait for button click (Task says: "if client text in filter input it should be hold in the filter state")
-    // Note: Task implies text is held in state. "on filter state change it should create a get request".
-    // So update global state on change or submit. Let's do on submit for better UX or on change with debounce.
-    // Task says: "if client text in filter input it should be hold in the filter state" -> implies controlled input.
-    // "on filter state change it should create a get request" -> implies useEffect on state change.
-
-    // Let's use local state for input and dispatch on change (maybe debounce) or form submit.
-    // Given the UI shows a "Filter" button, let's assume valid flow is: Type -> Click Filter -> Update State.
-    // But typical e-commerce might hold 'text' in local and 'filter' in global.
-    // Let's stick to: Text -> setFilter -> fetchProducts by Page logic or here.
-
-    // We will update standard input value locally and dispatch on blur or change. 
-    // Wait, the UI has a "Filter" button. It probably is for the Sort/Filter combo or just Filter.
-    // Let's make the "Filter" button trigger the fetch with current local input?
-    // Actually the task says: "on filter state change it should create a get request".
-    // This means `setFilter` should be dispatched, and `fetchProducts` should reaction to it.
 
     const [localFilter, setLocalFilter] = useState(filter);
 
+    // Update local filter if active filter changes from URL/Redux
+    useEffect(() => {
+        setLocalFilter(filter);
+    }, [filter]);
+
+    const updateUrl = (key, value) => {
+        const queryParams = new URLSearchParams(location.search);
+        if (value) {
+            queryParams.set(key, value);
+        } else {
+            queryParams.delete(key);
+        }
+        // Reset page to 1 on filter/sort change
+        queryParams.set('page', 1);
+
+        history.push({ search: queryParams.toString() });
+    };
+
     const handleFilterSubmit = (e) => {
         e.preventDefault();
-        dispatch(setFilter(localFilter));
-        // We can trigger fetch here explicitly or rely on ShopPage effect. 
-        // Task: "If one of the parameters ... changed, a new GET request should be sent".
-        // Let's trigger it directly here for clarity, passing current categoryId
-        dispatch(fetchProducts(categoryId));
+        updateUrl('filter', localFilter);
     };
 
     const handleSortChange = (e) => {
         const val = e.target.value;
-        dispatch(setSort(val));
-        dispatch(fetchProducts(categoryId));
+        updateUrl('sort', val);
     };
 
     return (

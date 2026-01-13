@@ -4,9 +4,13 @@ import singleProductMain from '../../assets/images/products/single-product-main.
 import singleProductThumb1 from '../../assets/images/products/single-product-thumb-1.jpg';
 import singleProductThumb2 from '../../assets/images/products/single-product-thumb-2.jpg';
 
-const ProductOverview = () => {
+const ProductOverview = ({ product }) => {
     // Product Images
-    const images = [singleProductMain, singleProductThumb1];
+    // Ensure images exist, otherwise fallback
+    const images = product?.images?.length > 0
+        ? product.images.map(img => img.url)
+        : [product?.image || singleProductMain];
+
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const nextImage = () => {
@@ -17,6 +21,8 @@ const ProductOverview = () => {
         setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
     };
 
+    if (!product) return null;
+
     return (
         <div className="bg-[#FAFAFA] py-8">
             <div className="container mx-auto px-4">
@@ -24,68 +30,79 @@ const ProductOverview = () => {
                     {/* Left Side - Image Slider */}
                     <div className="md:w-1/2">
                         {/* Main Image */}
-                        <div className="relative w-full aspect-square md:aspect-[506/450] bg-gray-200 overflow-hidden rounded-md mb-4 group">
+                        <div className="relative w-full md:w-fit mx-auto h-auto max-h-[600px] rounded-md mb-4 group">
                             <img
                                 src={images[currentImageIndex]}
-                                alt="Product"
-                                className="w-full h-full object-cover"
+                                alt={product.name}
+                                className="w-full h-full max-h-[600px] object-contain object-center rounded-md"
                             />
                             {/* Arrows */}
-                            <button
-                                onClick={prevImage}
-                                className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white p-2 hover:bg-black/20 rounded-full transition"
-                            >
-                                <ChevronLeft size={40} />
-                            </button>
-                            <button
-                                onClick={nextImage}
-                                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white p-2 hover:bg-black/20 rounded-full transition"
-                            >
-                                <ChevronRight size={40} />
-                            </button>
+                            {images.length > 1 && (
+                                <>
+                                    <button
+                                        onClick={prevImage}
+                                        className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white p-2 hover:bg-black/20 rounded-full transition"
+                                    >
+                                        <ChevronLeft size={40} />
+                                    </button>
+                                    <button
+                                        onClick={nextImage}
+                                        className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white p-2 hover:bg-black/20 rounded-full transition"
+                                    >
+                                        <ChevronRight size={40} />
+                                    </button>
+                                </>
+                            )}
                         </div>
                         {/* Thumbnails */}
-                        <div className="flex gap-4">
-                            {images.map((img, index) => (
-                                <div
-                                    key={index}
-                                    className={`w-[100px] h-[75px] cursor-pointer overflow-hidden rounded-md ${currentImageIndex === index ? 'opacity-100 ring-2 ring-[#23A6F0]' : 'opacity-50 hover:opacity-100'}`}
-                                    onClick={() => setCurrentImageIndex(index)}
-                                >
-                                    <img src={img} alt="Thumbnail" className="w-full h-full object-cover" />
-                                </div>
-                            ))}
-                        </div>
+                        {images.length > 1 && (
+                            <div className="flex gap-4 overflow-x-auto pb-2">
+                                {images.map((img, index) => (
+                                    <div
+                                        key={index}
+                                        className={`w-[100px] h-[75px] flex-shrink-0 cursor-pointer overflow-hidden rounded-md ${currentImageIndex === index ? 'opacity-100 ring-2 ring-[#23A6F0]' : 'opacity-50 hover:opacity-100'}`}
+                                        onClick={() => setCurrentImageIndex(index)}
+                                    >
+                                        <img src={img} alt={`Thumbnail ${index}`} className="w-full h-full object-cover" />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Right Side - Product Info */}
                     <div className="md:w-1/2 flex flex-col items-start gap-4 pt-2">
-                        <h4 className="text-[#252B42] text-[20px] font-normal">Floating Phone</h4>
+                        <h4 className="text-[#252B42] text-[20px] font-normal">{product.name}</h4>
 
                         {/* Rating */}
                         <div className="flex items-center gap-2">
                             <div className="flex text-[#F3CD03]">
-                                <Star size={18} fill="currentColor" />
-                                <Star size={18} fill="currentColor" />
-                                <Star size={18} fill="currentColor" />
-                                <Star size={18} fill="currentColor" />
-                                <Star size={18} />
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <Star
+                                        key={i}
+                                        size={18}
+                                        fill={i < Math.round(product.rating) ? "currentColor" : "none"}
+                                        stroke="currentColor"
+                                    />
+                                ))}
                             </div>
-                            <span className="text-[#737373] text-[14px] font-bold">10 Reviews</span>
+                            <span className="text-[#737373] text-[14px] font-bold">{product.sell_count} Sold</span>
                         </div>
 
                         {/* Price & Stock */}
                         <div className="flex flex-col gap-1">
-                            <h3 className="text-[#252B42] text-[24px] font-bold">$1,139.33</h3>
+                            <h3 className="text-[#252B42] text-[24px] font-bold">${product.price?.toFixed(2)}</h3>
                             <div className="flex items-center gap-2 text-[14px] font-bold">
                                 <span className="text-[#737373]">Availability :</span>
-                                <span className="text-[#23A6F0]">In Stock</span>
+                                <span className={product.stock > 0 ? "text-[#23A6F0]" : "text-red-500"}>
+                                    {product.stock > 0 ? "In Stock" : "Out of Stock"}
+                                </span>
                             </div>
                         </div>
 
                         {/* Description */}
                         <p className="text-[#858585] text-[14px] leading-[20px] pt-4 border-b border-[#BDBDBD] pb-6 mb-2">
-                            Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.
+                            {product.description}
                         </p>
 
                         {/* Colors */}

@@ -1,13 +1,12 @@
 import { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { fetchProducts, setOffset } from '../../store/actions/productActions';
+import { useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { FetchState } from '../../store/reducers/productReducer';
 import ProductCard from '../product/ProductCard';
 
 const ShopProducts = () => {
-    const dispatch = useDispatch();
-    const { categoryId } = useParams();
+    const history = useHistory();
+    const location = useLocation();
     const { productList, fetchState, total, limit, offset } = useSelector(state => state.product);
     const topRef = useRef(null);
 
@@ -17,9 +16,9 @@ const ShopProducts = () => {
     const handlePageChange = (page) => {
         if (page < 1 || page > totalPages) return;
 
-        const newOffset = (page - 1) * limit;
-        dispatch(setOffset(newOffset));
-        dispatch(fetchProducts(categoryId));
+        const queryParams = new URLSearchParams(location.search);
+        queryParams.set('page', page);
+        history.push({ search: queryParams.toString() });
 
         // Scroll to top of products grid
         topRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -256,8 +255,8 @@ const ShopProducts = () => {
                                                 key={page}
                                                 onClick={() => handlePageChange(page)}
                                                 className={`px-5 py-6 border-r border-[#E9E9E9] font-bold text-sm transition-colors ${currentPage === page
-                                                        ? 'bg-[#23A6F0] text-white hover:bg-[#1a8cd8]'
-                                                        : 'text-[#23A6F0] hover:bg-gray-50 bg-white'
+                                                    ? 'bg-[#23A6F0] text-white hover:bg-[#1a8cd8]'
+                                                    : 'text-[#23A6F0] hover:bg-gray-50 bg-white'
                                                     }`}
                                             >
                                                 {page}

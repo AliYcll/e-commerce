@@ -14,6 +14,7 @@ const initialState = {
     offset: 0,
     filter: "",
     sort: "",
+    activeProduct: null,
     fetchState: FetchState.NOT_FETCHED
 };
 
@@ -26,9 +27,10 @@ export const SET_LIMIT = 'SET_LIMIT';
 export const SET_OFFSET = 'SET_OFFSET';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_SORT = 'SET_SORT';
+export const SET_ACTIVE_PRODUCT = 'SET_ACTIVE_PRODUCT';
 
 // Reducer
-const productReducer = (state = initialState, action) => {
+export const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_CATEGORIES:
             return { ...state, categories: action.payload };
@@ -46,6 +48,8 @@ const productReducer = (state = initialState, action) => {
             return { ...state, filter: action.payload };
         case SET_SORT:
             return { ...state, sort: action.payload };
+        case SET_ACTIVE_PRODUCT:
+            return { ...state, activeProduct: action.payload };
         default:
             return state;
     }
