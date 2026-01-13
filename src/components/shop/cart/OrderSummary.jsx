@@ -4,44 +4,60 @@ import { useSelector } from 'react-redux';
 const OrderSummary = () => {
     const { cart } = useSelector(state => state.shoppingCart);
 
-    // Calculate totals
-    const subtotal = cart.reduce((sum, item) => sum + (item.product.price * item.count), 0);
-    const shipping = subtotal > 150 ? 0 : 29.99;
-    const discount = 0; // Can implement discount logic here
-    const total = subtotal + shipping - discount;
+    // Calculate totals based on CHECKED items only
+    const checkedItems = cart.filter(item => item.checked);
+    const subtotal = checkedItems.reduce((sum, item) => sum + (item.product.price * item.count), 0);
+
+    // Shipping rules: simple static rule (e.g. $29.99, free over $150)
+    // The screenshot shows "150 TL ve Üzeri Kargo Bedava (Satıcı Karşılar) -29.99 TL"
+    // Let's implement similar logic.
+    const shippingCost = 29.99;
+    const isShippingFree = subtotal >= 150;
+    const shippingTotal = isShippingFree ? 0 : shippingCost;
+
+    const total = subtotal + shippingTotal;
 
     return (
-        <div className="bg-white p-6 rounded shadow border border-[#E8E8E8]">
-            <h2 className="text-lg font-bold text-[#252B42] mb-6">Order Summary</h2>
+        <div className="flex flex-col gap-4">
+            <button className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm">
+                Create Order {'>'}
+            </button>
 
-            <div className="flex flex-col gap-4 mb-6">
-                <div className="flex justify-between text-[#737373]">
-                    <span>Subtotal</span>
-                    <span className="font-bold text-[#252B42]">${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-[#737373]">
-                    <span>Shipping</span>
-                    <span className="font-bold text-[#252B42]">
-                        {shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}
-                    </span>
-                </div>
-                {discount > 0 && (
-                    <div className="flex justify-between text-[#737373]">
-                        <span>Discount</span>
-                        <span className="font-bold text-green-600">-${discount.toFixed(2)}</span>
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h2 className="text-lg font-bold text-[#252B42] mb-4">Order Summary</h2>
+
+                <div className="flex flex-col gap-4 mb-4">
+                    <div className="flex justify-between text-[#737373] text-sm">
+                        <span>Items Total</span>
+                        <span className="font-bold text-[#252B42]">${subtotal.toFixed(2)}</span>
                     </div>
-                )}
-            </div>
+                    <div className="flex justify-between text-[#737373] text-sm">
+                        <span>Shipping Total</span>
+                        <span className="font-bold text-[#252B42]">${shippingCost.toFixed(2)}</span>
+                    </div>
 
-            <div className="border-t border-[#E8E8E8] pt-4 mb-6">
-                <div className="flex justify-between items-center">
-                    <span className="font-bold text-[#252B42]">Total</span>
-                    <span className="text-xl font-bold text-[#23A6F0]">${total.toFixed(2)}</span>
+                    {isShippingFree && (
+                        <div className="flex justify-between text-[#737373] text-sm">
+                            <span className="w-2/3">Free Shipping (Over $150)</span>
+                            <span className="font-bold text-[#23A6F0]">-${shippingCost.toFixed(2)}</span>
+                        </div>
+                    )}
+
+                    <div className="border-t border-gray-200 my-2"></div>
+
+                    <div className="flex justify-between items-center">
+                        <span className="font-bold text-[#252B42]">Total</span>
+                        <span className="text-xl font-bold text-[#23A6F0]">${total.toFixed(2)}</span>
+                    </div>
                 </div>
+
+                <button className="w-full bg-gray-100 text-[#23A6F0] py-3 rounded-md font-bold hover:bg-gray-200 transition text-sm flex items-center justify-center gap-2">
+                    <span>+</span> ENTER DISCOUNT CODE
+                </button>
             </div>
 
-            <button className="w-full bg-[#23A6F0] text-white py-3 rounded font-bold hover:bg-[#1a8cd8] transition text-sm">
-                Create Order
+            <button className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm">
+                Create Order {'>'}
             </button>
         </div>
     );
