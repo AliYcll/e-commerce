@@ -14,7 +14,20 @@ const ProductCard = ({ product }) => {
             .replace(/-+$/, '');      // Trim - from end of text
     };
 
-    const slug = slugify(product.title);
+    const title = product.name || product.title || "Product";
+    const slug = slugify(title);
+
+    // Handle image mapping (API returns images array, static data used image string)
+    const image = product.images && product.images.length > 0 ? product.images[0].url : (product.image || "");
+
+    // Handle description/department
+    const description = product.description || product.department || "English Department";
+
+    // Handle price (API returns number)
+    const price = product.price || 0;
+    // Simulate old price for visual consistency if not provided (e.g. 1.5x) or just use logic
+    const oldPrice = product.oldPrice || (price * 1.5).toFixed(2);
+    const newPrice = product.newPrice || price.toFixed(2);
 
     return (
         <Link to={`/shop/product/${product.id}/${slug}`} className="block h-full">
@@ -22,27 +35,27 @@ const ProductCard = ({ product }) => {
                 {/* Image Container */}
                 <div className="w-full relative aspect-[239/300] overflow-hidden mb-6 cursor-pointer group">
                     <img
-                        src={product.image}
-                        alt={product.title}
+                        src={image}
+                        alt={title}
                         className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-col items-center gap-2 pb-8">
-                    <h5 className="font-bold text-[#252B42] text-base text-center">
-                        {product.title}
+                    <h5 className="font-bold text-[#252B42] text-base text-center line-clamp-1">
+                        {title}
                     </h5>
-                    <span className="font-bold text-[#737373] text-sm text-center hover:text-[#23A6F0]">
-                        {product.department}
+                    <span className="font-bold text-[#737373] text-sm text-center hover:text-[#23A6F0] line-clamp-1">
+                        {description}
                     </span>
 
                     <div className="flex items-center gap-2 px-1 py-1">
-                        <h5 className="font-bold text-[#BDBDBD] text-base">
-                            {product.oldPrice}
+                        <h5 className="font-bold text-[#BDBDBD] text-base line-through">
+                            ${oldPrice}
                         </h5>
                         <h5 className="font-bold text-[#23856D] text-base">
-                            {product.newPrice}
+                            ${newPrice}
                         </h5>
                     </div>
 
