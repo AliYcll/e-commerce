@@ -50,3 +50,30 @@ export const loginUser = (credentials) => (dispatch) => {
             throw err;
         });
 };
+
+export const verifyToken = () => (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        // Set Authorization header
+        axiosInstance.defaults.headers.common['Authorization'] = token;
+
+        axiosInstance.get('/verify')
+            .then(res => {
+                // Determine user object based on response structure
+                // Assuming res.data is the user object directly or contains it
+                dispatch(setUser(res.data));
+
+                // Renew token in localStorage
+                localStorage.setItem("token", res.data.token);
+                // Ensure header is updated (in case it changed)
+                axiosInstance.defaults.headers.common['Authorization'] = res.data.token;
+            })
+            .catch(err => {
+                console.error("Token verification failed:", err);
+                localStorage.removeItem("token");
+                delete axiosInstance.defaults.headers.common['Authorization'];
+                dispatch(logoutUser());
+            });
+    }
+};

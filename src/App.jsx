@@ -16,7 +16,17 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ScrollToTop from './components/common/ScrollToTop'
 
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { verifyToken } from './store/actions/clientActions';
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(verifyToken());
+  }, [dispatch]);
+
   return (
     <>
       <ScrollToTop />
