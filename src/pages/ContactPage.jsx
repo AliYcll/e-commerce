@@ -1,11 +1,16 @@
 import React from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import contactHero from '../assets/images/contact/contact-hero.png';
+import heroBg from '../assets/images/contact/hero-bg.png';
+import heroBgMobile from '../assets/images/contact/hero-bg-mobile.png';
+import phoneIcon from '../assets/icons/contact/phone.png';
+import locationIcon from '../assets/icons/contact/location.png';
+import emailIcon from '../assets/icons/contact/email.png';
 import twitterIcon from '../assets/icons/contact/contact-twitter.png';
 import facebookIcon from '../assets/icons/contact/contact-facebook.png';
 import instagramIcon from '../assets/icons/contact/contact-instagram.png';
 import linkedinIcon from '../assets/icons/contact/contact-linkedin.png';
+import { ArrowLeft, ArrowRight } from 'lucide-react'; // Assuming we can use lucide for the arrow, or I'll just use text if not available. User said "Arrow 2" in CSS.
 
 const ContactPage = () => {
     return (
@@ -13,77 +18,86 @@ const ContactPage = () => {
             <Header />
 
             {/* Hero Section */}
-            <section className="container mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-12">
-                <div className="md:w-1/2 flex flex-col gap-6 items-center text-center md:items-start md:text-left">
-                    <h5 className="font-bold text-xl mt-8">CONTACT US</h5>
-                    <h1 className="text-5xl font-bold text-primary leading-tight">Get in touch <br />today!</h1>
-                    <p className="text-text-gray text-xl max-w-sm">
-                        We know how large objects will act, but things on a small scale
-                    </p>
-                    <div className="text-primary font-bold text-xl">
-                        Phone: +451 215 215
-                        <br />
-                        Fax: +451 215 215
+            <section className="relative w-full md:h-screen flex items-center bg-white overflow-hidden">
+                {/* Desktop Background Layer (Hidden on mobile) */}
+                <div
+                    className="absolute inset-0 bg-center bg-no-repeat hidden md:block z-0 bg-[length:100%] min-[1660px]:bg-[length:85%]"
+                    style={{
+                        backgroundImage: `url(${heroBg})`
+                    }}
+                />
+
+                <div className="container mx-auto px-4 py-10 md:py-0 relative z-10">
+                    <div className="w-full md:w-1/2 flex flex-col gap-8 items-center text-center md:items-start md:text-left bg-white/90 md:bg-transparent p-6 rounded-lg">
+                        <h5 className="font-bold text-base text-[#252B42] mt-8">CONTACT US</h5>
+                        <h1 className="text-4xl md:text-[58px] font-bold text-[#252B42] leading-tight">Get in touch <br />today!</h1>
+                        <p className="text-[#737373] text-xl max-w-sm">
+                            We know how large objects will act, but things on a small scale
+                        </p>
+                        <div className="text-[#252B42] font-bold text-xl">
+                            Phone: +451 215 215
+                            <br />
+                            Fax: +451 215 215
+                        </div>
+                        <div className="flex gap-[34px] p-[10px]">
+                            <img src={twitterIcon} alt="Twitter" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
+                            <img src={facebookIcon} alt="Facebook" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
+                            <img src={instagramIcon} alt="Instagram" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
+                            <img src={linkedinIcon} alt="LinkedIn" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
+                        </div>
                     </div>
-                    <div className="flex gap-[34px] p-[10px]">
-                        <img src={twitterIcon} alt="Twitter" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
-                        <img src={facebookIcon} alt="Facebook" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
-                        <img src={instagramIcon} alt="Instagram" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
-                        <img src={linkedinIcon} alt="LinkedIn" className="w-[30px] h-auto hover:opacity-80 transition-opacity cursor-pointer" />
+
+                    {/* Mobile Image Block */}
+                    <div className="w-full md:hidden mt-8 flex justify-center -mx-4 w-[calc(100%+2rem)]">
+                        <img src={heroBgMobile} alt="Family Shopping" className="w-full h-auto object-cover" />
                     </div>
-                </div>
-                <div className="md:w-1/2 relative">
-                    {/* Image Placeholder */}
-                    <div className="bg-[#FFE9EA] rounded-full w-[400px] h-[400px] absolute top-10 right-10 -z-10"></div>
-                    <img src={contactHero} alt="Family" className="relative z-10 rounded-lg object-cover w-[500px] h-[500px]" />
                 </div>
             </section>
 
             {/* Visit Office Cards */}
-            <section className="bg-light-bg py-20">
-                <div className="container mx-auto px-4 text-center">
-                    <h6 className="font-bold text-primary mb-2">VISIT OUR OFFICE</h6>
-                    <h2 className="text-4xl font-bold text-primary max-w-xl mx-auto mb-16">
+            <section className="bg-[#F9F9F9] py-20">
+                <div className="container mx-auto px-4 text-center section-container">
+                    <h6 className="font-bold text-[#252B42] text-sm mb-2">VISIT OUR OFFICE</h6>
+                    <h2 className="text-4xl font-bold text-[#252B42] max-w-xl mx-auto mb-16">
                         We help small businesses with big ideas
                     </h2>
 
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {/* Phone Card */}
-                        <div className="bg-white p-10 flex flex-col items-center gap-4 py-20 hover:scale-105 transition-transform">
-                            <div className="text-secondary mb-4">
-                                {/* Icon placeholder */}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <div className="grid md:grid-cols-3 justify-center items-center">
+                        {/* Phone Card (Light) */}
+                        <div className="bg-white p-10 flex flex-col items-center gap-4 py-16 w-full h-full hover:shadow-lg transition-shadow">
+                            <img src={phoneIcon} alt="Phone" className="w-[72px] h-[72px] object-contain mb-2" />
+                            <div className="text-[#252B42] font-bold text-sm">
+                                <p>georgia.young@example.com</p>
+                                <p>georgia.young@ple.com</p>
                             </div>
-                            <h6 className="font-bold text-primary">georgia.young@example.com</h6>
-                            <h6 className="font-bold text-primary">georgia.young@ple.com</h6>
-                            <h5 className="font-bold text-primary mt-2">Get Support</h5>
-                            <button className="text-secondary border border-secondary rounded-full px-6 py-3 font-bold mt-2 hover:bg-secondary hover:text-white transition">
+                            <h5 className="font-bold text-[#252B42] text-base mt-2">Get Support</h5>
+                            <button className="text-[#23A6F0] border border-[#23A6F0] rounded-full px-6 py-3 font-bold text-sm mt-2 hover:bg-[#23A6F0] hover:text-white transition">
                                 Submit Request
                             </button>
                         </div>
 
-                        {/* Map Card - Dark */}
-                        <div className="bg-primary text-white p-10 flex flex-col items-center gap-4 py-20 scale-105 shadow-xl">
-                            <div className="text-secondary mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="10" r="3" /><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z" /></svg>
+                        {/* Location Card (Dark) - Scaled up slightly to mimic the "middle card pop" effect if desired, or just same size but dark */}
+                        <div className="bg-[#252B42] p-10 flex flex-col items-center gap-4 py-20 w-full h-full shadow-xl transform md:scale-105 z-10">
+                            <img src={locationIcon} alt="Location" className="w-[72px] h-[72px] object-contain mb-2" />
+                            <div className="text-white font-bold text-sm">
+                                <p>georgia.young@example.com</p>
+                                <p>georgia.young@ple.com</p>
                             </div>
-                            <h6 className="font-bold">georgia.young@example.com</h6>
-                            <h6 className="font-bold">georgia.young@ple.com</h6>
-                            <h5 className="font-bold mt-2">Get Support</h5>
-                            <button className="text-secondary border border-secondary rounded-full px-6 py-3 font-bold mt-2 hover:bg-secondary hover:text-white transition">
+                            <h5 className="font-bold text-white text-base mt-2">Get Support</h5>
+                            <button className="text-[#23A6F0] border border-[#23A6F0] rounded-full px-6 py-3 font-bold text-sm mt-2 hover:bg-[#23A6F0] hover:text-white transition">
                                 Submit Request
                             </button>
                         </div>
 
-                        {/* Email Card */}
-                        <div className="bg-white p-10 flex flex-col items-center gap-4 py-20 hover:scale-105 transition-transform">
-                            <div className="text-secondary mb-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                        {/* Email Card (Light) */}
+                        <div className="bg-white p-10 flex flex-col items-center gap-4 py-16 w-full h-full hover:shadow-lg transition-shadow">
+                            <img src={emailIcon} alt="Email" className="w-[72px] h-[72px] object-contain mb-2" />
+                            <div className="text-[#252B42] font-bold text-sm">
+                                <p>georgia.young@example.com</p>
+                                <p>georgia.young@ple.com</p>
                             </div>
-                            <h6 className="font-bold text-primary">georgia.young@example.com</h6>
-                            <h6 className="font-bold text-primary">georgia.young@ple.com</h6>
-                            <h5 className="font-bold text-primary mt-2">Get Support</h5>
-                            <button className="text-secondary border border-secondary rounded-full px-6 py-3 font-bold mt-2 hover:bg-secondary hover:text-white transition">
+                            <h5 className="font-bold text-[#252B42] text-base mt-2">Get Support</h5>
+                            <button className="text-[#23A6F0] border border-[#23A6F0] rounded-full px-6 py-3 font-bold text-sm mt-2 hover:bg-[#23A6F0] hover:text-white transition">
                                 Submit Request
                             </button>
                         </div>
@@ -92,14 +106,15 @@ const ContactPage = () => {
             </section>
 
             {/* Arrow CTA */}
-            <section className="py-20 text-center relative">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary">
-                    {/* Curved Arrow SVG placeholder */}
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-bounce"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
+            <section className="py-20 text-center relative bg-white">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    {/* Using an SVG for curved arrow as placeholder, or if user has one. The user only gave phone/loc/mail icons.
+                     I will use a simple arrow SVG. */}
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#23A6F0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-bounce"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
                 </div>
-                <h5 className="font-bold text-primary">WE Can't WAIT TO MEET YOU</h5>
-                <h2 className="text-5xl font-bold text-primary my-8">Let's Talk</h2>
-                <button className="bg-secondary text-white font-bold py-4 px-12 rounded-[5px] hover:bg-[#1a8cd8] transition">
+                <h5 className="font-bold text-[#252B42] text-base tracking-wider mb-4">WE Can't WAIT TO MEET YOU</h5>
+                <h2 className="text-4xl md:text-[58px] font-bold text-[#252B42] mb-8">Let's Talk</h2>
+                <button className="bg-[#23A6F0] text-white font-bold py-4 px-10 rounded-[5px] hover:bg-[#1a8cd8] transition text-sm">
                     Try it free now
                 </button>
             </section>

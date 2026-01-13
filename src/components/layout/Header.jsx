@@ -104,9 +104,11 @@ const Header = () => {
                             </div>
                         ) : (
                             <>
-                                <div className="flex items-center gap-2 cursor-pointer hover:text-[#1a8cd8]">
+                                <div className="flex items-center gap-2 cursor-pointer text-[#23A6F0]">
                                     <User size={16} />
-                                    <span>Login / Register</span>
+                                    <Link to="/login" className="hover:text-[#1a8cd8]">Login</Link>
+                                    <span>/</span>
+                                    <Link to="/register" className="hover:text-[#1a8cd8]">Register</Link>
                                 </div>
                                 <Search size={16} className="cursor-pointer hover:text-[#1a8cd8]" />
                                 <div className="flex items-center gap-1 cursor-pointer hover:text-[#1a8cd8]">
@@ -164,9 +166,11 @@ const Header = () => {
                                 </nav>
 
                                 <div className="flex flex-col items-center gap-6 w-full text-[#23A6F0] mt-4">
-                                    <div className="flex items-center gap-2 text-2xl sm:text-[30px] font-normal cursor-pointer hover:text-[#1a8cd8]">
+                                    <div className="flex items-center gap-2 text-2xl sm:text-[30px] font-normal cursor-pointer">
                                         <User size={30} />
-                                        <span>Login / Register</span>
+                                        <Link to="/login" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Login</Link>
+                                        <span>/</span>
+                                        <Link to="/register" className="hover:text-[#1a8cd8]" onClick={toggleMenu}>Register</Link>
                                     </div>
                                     <div className="flex flex-col items-center gap-6 mt-2">
                                         <Search size={30} className="cursor-pointer" />

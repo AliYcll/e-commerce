@@ -5,10 +5,10 @@ import footerTwitterIcon from '../../assets/icons/footer/footer-twitter.png';
 
 const Footer = () => {
     return (
-        <footer className="bg-white px-10">
+        <footer className="bg-white">
             {/* Footer Top */}
-            <div className="bg-[#FAFAFA] py-10">
-                <div className="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="w-full bg-[#FAFAFA] py-10">
+                <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <h3 className="text-2xl font-bold text-[#252B42]">Bandage</h3>
                     <div className="flex gap-4 text-[#23A6F0]">
                         <img src={footerFacebookIcon} alt="Facebook" className="cursor-pointer" />
@@ -19,8 +19,8 @@ const Footer = () => {
             </div>
 
             {/* Footer Links Section */}
-            <div className="container mx-auto py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+            <div className="container mx-auto px-4 py-12">
+                <div className="grid grid-cols-1 my-4 md:grid-cols-2 lg:grid-cols-6 gap-8">
                     {/* Columns */}
                     <div className="flex flex-col gap-4">
                         <h5 className="font-bold text-[#252B42]">Company Info</h5>
@@ -67,7 +67,7 @@ const Footer = () => {
 
             {/* Bottom Footer */}
             <div className="bg-[#FAFAFA] py-6">
-                <div className="container mx-auto flex justify-between items-center">
+                <div className="container mx-auto px-4 flex justify-between items-center">
                     <p className="text-[#737373] font-bold text-sm text-center md:text-left w-[60%] md:w-full mx-auto md:mx-0">
                         Made With Love By Finland All Right Reserved
                     </p>
