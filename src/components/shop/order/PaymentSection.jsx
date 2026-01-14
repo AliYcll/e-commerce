@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCards, addCard, updateCard, deleteCard } from '../../../store/actions/clientActions';
 import CreditCardForm from '../../common/CreditCardForm';
 
-const PaymentSection = () => {
+const PaymentSection = ({ onFormStatusChange, selectedCardId, onChange }) => {
     const dispatch = useDispatch();
     const { creditCards } = useSelector(state => state.client);
 
     // Local state
-    const [selectedCardId, setSelectedCardId] = useState(null);
     const [isAddingNew, setIsAddingNew] = useState(false);
     const [editingCard, setEditingCard] = useState(null);
 
@@ -20,9 +19,20 @@ const PaymentSection = () => {
     // Set default selected card
     useEffect(() => {
         if (creditCards && creditCards.length > 0 && !selectedCardId) {
-            setSelectedCardId(creditCards[0].id);
+            // If no card is selected but we have cards, select the first one
+            // We use the onChange prop to notify the parent
+            if (onChange) {
+                onChange(creditCards[0].id);
+            }
         }
-    }, [creditCards]);
+    }, [creditCards, selectedCardId, onChange]);
+
+    // Notify parent about busy state (form open)
+    useEffect(() => {
+        if (onFormStatusChange) {
+            onFormStatusChange(isAddingNew);
+        }
+    }, [isAddingNew, onFormStatusChange]);
 
     const handleCardSubmit = (data) => {
         if (editingCard) {
@@ -50,17 +60,22 @@ const PaymentSection = () => {
         setIsAddingNew(true);
     };
 
+    const handleAddNewClick = () => {
+        setEditingCard(null);
+        setIsAddingNew(true);
+    }
+
     return (
         <div className="animate-fade-in">
             {/* Header Tabs Mockup */}
             <div className="bg-white rounded border border-gray-200 p-4 mb-6">
-                <h3 className="text-xl font-bold text-[#252B42] mb-4">Kart ile Öde</h3>
+                <h3 className="text-xl font-bold text-[#252B42] mb-4">Payment Options</h3>
                 <div className="flex gap-4 border-b border-gray-200 pb-2">
                     <button className="text-sm font-bold text-[#252B42] border-b-2 border-[#252B42] pb-2 -mb-2.5">
-                        Kart ile Öde
+                        Pay with Card
                     </button>
                     <button className="text-sm font-bold text-[#737373] pb-2">
-                        Kapıda Ödeme
+                        Cash on Delivery
                     </button>
                 </div>
             </div>
@@ -69,21 +84,22 @@ const PaymentSection = () => {
                 {/* Left Column: Cards */}
                 <div>
                     <div className="flex justify-between items-center mb-4">
-                        <h4 className="font-bold text-[#252B42]">Kart Bilgileri</h4>
+                        <h4 className="font-bold text-[#252B42]">Card Information</h4>
                         <button
-                            onClick={() => { setEditingCard(null); setIsAddingNew(true); }}
-                            className="text-sm text-[#737373] underline hover:text-[#23A6F0]"
+                            onClick={handleAddNewClick}
+                            disabled={isAddingNew}
+                            className={`text-sm text-[#737373] underline hover:text-[#23A6F0] ${isAddingNew ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            Başka bir Kart ile Ödeme Yap
+                            Pay with another card
                         </button>
                     </div>
 
                     {/* Card Scroller / Grid */}
-                    <div className="space-y-4 mb-6">
+                    <div className={`space-y-4 mb-6 transition-opacity ${isAddingNew ? 'opacity-50 pointer-events-none' : ''}`}>
                         {creditCards.map(card => (
                             <div
                                 key={card.id}
-                                onClick={() => setSelectedCardId(card.id)}
+                                onClick={() => onChange && onChange(card.id)}
                                 className={`p-4 border rounded cursor-pointer transition-all flex justify-between items-center ${selectedCardId === card.id
                                     ? 'border-[#23A6F0] bg-[#F3F9FE]'
                                     : 'border-gray-200 bg-white hover:border-gray-300'}`}
@@ -92,7 +108,8 @@ const PaymentSection = () => {
                                     <input
                                         type="radio"
                                         checked={selectedCardId === card.id}
-                                        onChange={() => setSelectedCardId(card.id)}
+                                        onChange={() => onChange && onChange(card.id)}
+                                        disabled={isAddingNew}
                                         className="w-4 h-4 text-[#23A6F0] focus:ring-[#23A6F0]"
                                     />
                                     <div>
@@ -110,13 +127,15 @@ const PaymentSection = () => {
                                 <div className="flex gap-2">
                                     <button
                                         onClick={(e) => handleEdit(card, e)}
-                                        className="text-xs font-bold text-[#23A6F0] hover:underline"
+                                        disabled={isAddingNew}
+                                        className="text-xs font-bold text-[#23A6F0] hover:underline disabled:cursor-not-allowed"
                                     >
                                         Edit
                                     </button>
                                     <button
                                         onClick={(e) => handleDelete(card.id, e)}
-                                        className="text-gray-400 hover:text-red-500"
+                                        disabled={isAddingNew}
+                                        className="text-gray-400 hover:text-red-500 disabled:cursor-not-allowed"
                                         title="Delete"
                                     >
                                         🗑️
@@ -128,12 +147,12 @@ const PaymentSection = () => {
                         {/* If list is empty */}
                         {creditCards.length === 0 && !isAddingNew && (
                             <div className="text-center py-8 bg-gray-50 rounded border border-dashed border-gray-300">
-                                <p className="text-[#737373] mb-2">Henüz kayıtlı kartınız yok.</p>
+                                <p className="text-[#737373] mb-2">You have no saved cards yet.</p>
                                 <button
                                     onClick={() => setIsAddingNew(true)}
                                     className="text-[#23A6F0] font-bold underline"
                                 >
-                                    Yeni Kart Ekle
+                                    Add New Card
                                 </button>
                             </div>
                         )}
@@ -153,39 +172,39 @@ const PaymentSection = () => {
 
                 {/* Right Column: Installments (Mock) */}
                 <div>
-                    <h4 className="font-bold text-[#252B42] mb-4">Taksit Seçenekleri</h4>
-                    <p className="text-xs text-[#737373] mb-4">Kartınıza uygun taksit seçeneğini seçiniz</p>
+                    <h4 className="font-bold text-[#252B42] mb-4">Installment Options</h4>
+                    <p className="text-xs text-[#737373] mb-4">Select installment option suitable for your card</p>
 
                     <div className="border border-gray-200 rounded overflow-hidden">
                         <table className="w-full text-sm">
                             <thead className="bg-gray-50 border-b border-gray-200">
                                 <tr>
-                                    <th className="p-3 text-left text-[#252B42]">Taksit Sayısı</th>
-                                    <th className="p-3 text-left text-[#252B42]">Aylık Ödeme</th>
+                                    <th className="p-3 text-left text-[#252B42]">Installments</th>
+                                    <th className="p-3 text-left text-[#252B42]">Monthly Payment</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 <tr className="hover:bg-gray-50">
                                     <td className="p-3 flex items-center gap-2">
                                         <input type="radio" checked readOnly className="text-[#23A6F0]" />
-                                        <span className="font-bold text-[#23A6F0]">Tek Çekim</span>
+                                        <span className="font-bold text-[#23A6F0]">Single Payment</span>
                                     </td>
                                     <td className="p-3 font-bold text-[#23A6F0]">
                                         {/* Mock Total - Ideally pass from props */}
-                                        Topl. Ödeme
+                                        Total
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50 opacity-50">
                                     <td className="p-3 flex items-center gap-2">
                                         <input type="radio" disabled />
-                                        <span>3 Taksit</span>
+                                        <span>3 Installments</span>
                                     </td>
                                     <td className="p-3">Calculation...</td>
                                 </tr>
                                 <tr className="hover:bg-gray-50 opacity-50">
                                     <td className="p-3 flex items-center gap-2">
                                         <input type="radio" disabled />
-                                        <span>6 Taksit</span>
+                                        <span>6 Installments</span>
                                     </td>
                                     <td className="p-3">Calculation...</td>
                                 </tr>

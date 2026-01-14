@@ -65,6 +65,22 @@ const UserDropdown = () => {
                     <div className="py-1">
                         <button
                             className="w-full text-left px-4 py-2 text-sm text-[#737373] hover:bg-gray-50 hover:text-[#23A6F0] flex items-center gap-2 transition-colors"
+                            onClick={() => { setIsOpen(false); history.push('/my-orders'); }}
+                        >
+                            <svg
+                                width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                            >
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                            Previous Orders
+                        </button>
+                        <button
+                            className="w-full text-left px-4 py-2 text-sm text-[#737373] hover:bg-gray-50 hover:text-[#23A6F0] flex items-center gap-2 transition-colors"
                             onClick={() => setIsOpen(false)}
                         >
                             <UserIcon size={16} />

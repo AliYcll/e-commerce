@@ -3,6 +3,7 @@ const initialState = {
     user: {},
     addressList: [],
     creditCards: [],
+    orderList: [],
     roles: [],
     theme: "",
     language: ""
@@ -17,6 +18,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const SET_ADDRESS_LIST = 'SET_ADDRESS_LIST';
 export const SET_CARD_LIST = 'SET_CARD_LIST';
+export const SET_ORDER_LIST = 'SET_ORDER_LIST';
 
 // Reducer
 const clientReducer = (state = initialState, action) => {
@@ -33,7 +35,10 @@ const clientReducer = (state = initialState, action) => {
             return { ...state, addressList: action.payload };
         case SET_CARD_LIST:
             return { ...state, creditCards: action.payload };
+        case SET_ORDER_LIST:
+            return { ...state, orderList: action.payload };
         case LOGOUT_USER:
+            return { ...state, user: {}, addressList: [], creditCards: [], orderList: [] };
             return { ...state, user: {}, addressList: [], creditCards: [] };
         default:
             return state;

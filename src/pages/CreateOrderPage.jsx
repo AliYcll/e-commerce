@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAddressList, addAddress, updateAddress, deleteAddress } from '../store/actions/clientActions';
+import { getAddressList, addAddress, updateAddress, deleteAddress, createOrder } from '../store/actions/clientActions';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import OrderSummary from '../components/shop/cart/OrderSummary';
@@ -14,15 +14,16 @@ const CreateOrderPage = () => {
     const dispatch = useDispatch();
 
     // Selectors
-    const { user, addressList } = useSelector(state => state.client);
+    const { user, addressList, creditCards } = useSelector(state => state.client);
+    const { cart } = useSelector(state => state.shoppingCart);
 
     // Check if user is authenticated based on Redux state OR valid token in localStorage
-    // We prefer Redux state for reactivity, but localStorage is the source of truth for persistence
     const isAuthenticated = user.email || localStorage.getItem("token");
 
     const [isAddingNew, setIsAddingNew] = useState(false);
     const [editingAddress, setEditingAddress] = useState(null);
     const [selectedAddressId, setSelectedAddressId] = useState(null);
+    const [selectedCardId, setSelectedCardId] = useState(null);
     const [activeStep, setActiveStep] = useState('address');
     const [paymentBusy, setPaymentBusy] = useState(false);
 
@@ -75,6 +76,52 @@ const CreateOrderPage = () => {
         setIsAddingNew(true);
         // Scroll to form
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleCreateOrder = () => {
+        if (!selectedAddressId || !selectedCardId) {
+            alert("Please select an address and a credit card.");
+            return;
+        }
+
+        const card = creditCards.find(c => c.id === selectedCardId);
+        if (!card) return;
+
+        // Calculate total price (checked items only)
+        const checkedItems = cart.filter(item => item.checked);
+        if (checkedItems.length === 0) {
+            alert("Your cart is empty.");
+            return;
+        }
+
+        const subtotal = checkedItems.reduce((sum, item) => sum + (item.product.price * item.count), 0);
+        const shippingCost = subtotal >= 150 ? 0 : 29.99;
+        const totalPrice = subtotal + shippingCost;
+
+        const orderPayload = {
+            address_id: selectedAddressId,
+            order_date: new Date().toISOString(),
+            card_no: parseInt(card.card_no.replace(/\s/g, ''), 10), // Ensure number
+            card_name: card.name_on_card,
+            card_expire_month: parseInt(card.expire_month, 10),
+            card_expire_year: parseInt(card.expire_year, 10),
+            card_ccv: 321, // Mock CVV as it's not stored
+            price: totalPrice,
+            products: checkedItems.map(item => ({
+                product_id: item.product.id,
+                count: item.count,
+                detail: item.product.description || item.product.name // Detail description
+            }))
+        };
+
+        dispatch(createOrder(orderPayload))
+            .then(() => {
+                history.push('/order-success');
+            })
+            .catch(err => {
+                console.error(err);
+                alert("An error occurred while creating the order.");
+            });
     };
 
     return (
@@ -196,7 +243,11 @@ const CreateOrderPage = () => {
                                     )}
                                 </>
                             ) : (
-                                <PaymentSection onFormStatusChange={setPaymentBusy} />
+                                <PaymentSection
+                                    onFormStatusChange={setPaymentBusy}
+                                    selectedCardId={selectedCardId}
+                                    onChange={setSelectedCardId}
+                                />
                             )}
                         </div>
 
@@ -210,8 +261,7 @@ const CreateOrderPage = () => {
                                             setActiveStep('payment');
                                             window.scrollTo({ top: 0, behavior: 'smooth' });
                                         } else {
-                                            // TODO: Create Order (Task 22)
-                                            alert("Order Creation to be implemented in T22");
+                                            handleCreateOrder();
                                         }
                                     }}
                                     disabled={activeStep === 'payment' && paymentBusy}
@@ -223,7 +273,7 @@ const CreateOrderPage = () => {
                                     {activeStep === 'address' ? 'Save and Continue >' : 'Complete Order >'}
                                 </button>
                                 <div className="mt-4 flex items-start gap-2 text-xs text-[#737373] text-left border border-gray-200 p-3 rounded bg-white">
-                                    <input type="checkbox" className="mt-1" />
+                                    <input type="checkbox" className="mt-1" defaultChecked />
                                     <span>
                                         I have read and agree to the <a href="#" className="underline font-bold">Preliminary Information Conditions</a> and <a href="#" className="underline font-bold">Distance Sales Agreement</a>.
                                     </span>

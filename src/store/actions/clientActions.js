@@ -6,8 +6,10 @@ import {
     SET_LANGUAGE,
     SET_ADDRESS_LIST,
     SET_CARD_LIST,
+    SET_ORDER_LIST,
     LOGOUT_USER
 } from '../reducers/clientReducer';
+import { CLEAR_CART } from '../reducers/shoppingCartReducer';
 
 // Action Creators
 export const setUser = (user) => ({ type: SET_USER, payload: user });
@@ -172,6 +174,29 @@ export const deleteCard = (id) => (dispatch) => {
         })
         .catch(err => {
             console.error("Error deleting card:", err);
+            throw err;
+        });
+};
+
+// Order Actions
+export const getOrders = () => (dispatch) => {
+    return axiosInstance.get('/order')
+        .then(res => {
+            dispatch({ type: SET_ORDER_LIST, payload: res.data });
+        })
+        .catch(err => {
+            console.error("Error getting orders:", err);
+        });
+};
+
+export const createOrder = (orderData) => (dispatch) => {
+    return axiosInstance.post('/order', orderData)
+        .then(res => {
+            dispatch({ type: CLEAR_CART });
+            return res.data;
+        })
+        .catch(err => {
+            console.error("Error creating order:", err);
             throw err;
         });
 };
