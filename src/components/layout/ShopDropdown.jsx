@@ -58,32 +58,30 @@ const ShopDropdown = () => {
     }, []);
 
     const generateLink = (category, gender) => {
-        // gender: 'k' -> 'kadin', 'e' -> 'erkek'
         const genderSlug = gender === 'k' ? 'kadin' : 'erkek';
-        // slugify title: 'Tişört & Atlet' -> 'tisort-atlet' logic or simpler 'title.toLowerCase()'
-        // For simplicity and robustness, lets match the user sample: shop/kadin/ayakkabi/2
-        // We will slugify properly if needed, but for now simple lowercase might suffice or we need a slugify helper.
-        // Let's implement a simple slugify.
 
         const slugify = (text) => {
+            if (!text) return "";
             return text
                 .toString()
                 .toLowerCase()
-                .replace(/\s+/g, '-')           // Replace spaces with -
-                .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-                .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-                .replace(/^-+/, '')             // Trim - from start of text
-                .replace(/-+$/, '');            // Trim - from end of text
-        }
+                .replace(/ğ/g, 'g')
+                .replace(/ü/g, 'u')
+                .replace(/ş/g, 's')
+                .replace(/ı/g, 'i')
+                .replace(/i̇/g, 'i')
+                .replace(/ö/g, 'o')
+                .replace(/ç/g, 'c')
+                .replace(/\s+/g, '-')     // Replace spaces with -
+                .replace(/[^\w-]+/g, '')  // Remove all non-word chars
+                .replace(/--+/g, '-')     // Replace multiple - with single -
+                .replace(/^-+/, '')       // Trim - from start of text
+                .replace(/-+$/, '');      // Trim - from end of text
+        };
 
-        // However, the category object likely has a 'code' like 'k:tisort'. 
-        // We can use the part after ':' as the categoryName param if title is too complex.
-        // But user requested: shop/:gender/:categoryName/:categoryId
-        // Let's use detail from code if title is complex, or slugify title.
-        // Let's rely on code's second part for clean slug if available.
-        const categorySlug = category.code?.split(':')[1] || slugify(category.title);
+        const categorySlug = slugify(category.title);
 
-        return `/shop/${genderSlug}/${categorySlug}/${category.id}`;
+        return `/shop/${genderSlug}/${categorySlug}`;
     };
 
     return (
