@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-const OrderSummary = () => {
+const OrderSummary = ({ showButton = true }) => {
     const { cart } = useSelector(state => state.shoppingCart);
     const history = useHistory();
 
@@ -11,8 +11,6 @@ const OrderSummary = () => {
     const subtotal = checkedItems.reduce((sum, item) => sum + (item.product.price * item.count), 0);
 
     // Shipping rules: simple static rule (e.g. $29.99, free over $150)
-    // The screenshot shows "150 TL ve Üzeri Kargo Bedava (Satıcı Karşılar) -29.99 TL"
-    // Let's implement similar logic.
     const shippingCost = 29.99;
     const isShippingFree = subtotal >= 150;
     const shippingTotal = isShippingFree ? 0 : shippingCost;
@@ -21,12 +19,14 @@ const OrderSummary = () => {
 
     return (
         <div className="flex flex-col gap-4">
-            <button
-                onClick={() => history.push('/order')}
-                className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm"
-            >
-                Create Order {'>'}
-            </button>
+            {showButton && (
+                <button
+                    onClick={() => history.push('/order')}
+                    className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm"
+                >
+                    Create Order {'>'}
+                </button>
+            )}
 
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                 <h2 className="text-lg font-bold text-[#252B42] mb-4">Order Summary</h2>
@@ -61,12 +61,14 @@ const OrderSummary = () => {
                 </button>
             </div>
 
-            <button
-                onClick={() => history.push('/order')}
-                className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm"
-            >
-                Create Order {'>'}
-            </button>
+            {showButton && (
+                <button
+                    onClick={() => history.push('/order')}
+                    className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm"
+                >
+                    Create Order {'>'}
+                </button>
+            )}
         </div>
     );
 };

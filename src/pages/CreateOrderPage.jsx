@@ -24,6 +24,7 @@ const CreateOrderPage = () => {
     const [editingAddress, setEditingAddress] = useState(null);
     const [selectedAddressId, setSelectedAddressId] = useState(null);
     const [activeStep, setActiveStep] = useState('address');
+    const [paymentBusy, setPaymentBusy] = useState(false);
 
     // Redirect if not logged in
     useEffect(() => {
@@ -201,7 +202,7 @@ const CreateOrderPage = () => {
 
                         {/* Right Side - Summary */}
                         <div className="lg:col-span-4">
-                            <OrderSummary />
+                            <OrderSummary showButton={false} />
                             <div className="mt-4 text-center">
                                 <button
                                     onClick={() => {
@@ -215,8 +216,8 @@ const CreateOrderPage = () => {
                                     }}
                                     disabled={activeStep === 'payment' && paymentBusy}
                                     className={`w-full py-4 rounded font-bold text-lg transition shadow-lg ${activeStep === 'payment' && paymentBusy
-                                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                            : 'bg-[#23A6F0] text-white hover:bg-[#1a8cd8]'
+                                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                        : 'bg-[#23A6F0] text-white hover:bg-[#1a8cd8]'
                                         }`}
                                 >
                                     {activeStep === 'address' ? 'Save and Continue >' : 'Complete Order >'}
