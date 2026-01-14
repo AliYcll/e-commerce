@@ -161,9 +161,9 @@ const Header = () => {
                         <button className="text-[#252B42] hover:text-[#737373]">
                             <img src={mobileMenuSearch} alt="Search" className="w-[24px] h-auto" />
                         </button>
-                        <button className="text-[#252B42] hover:text-[#737373]">
+                        <Link to="/cart" className="text-[#252B42] hover:text-[#737373]">
                             <img src={mobileMenuCart} alt="Cart" className="w-[24px] h-auto" />
-                        </button>
+                        </Link>
                         <button onClick={toggleMenu} className="text-[#252B42] hover:text-[#737373]">
                             {isMenuOpen ? <X size={30} /> : <img src={mobileMenuIcon} alt="Menu" className="w-[24px] h-[16px]" />}
                         </button>
@@ -206,9 +206,9 @@ const Header = () => {
                                     )}
                                     <div className="flex flex-col items-center gap-6 mt-2">
                                         <Search size={30} className="cursor-pointer" />
-                                        <div className="flex items-center gap-1 cursor-pointer">
+                                        <Link to="/cart" className="flex items-center gap-1 cursor-pointer" onClick={toggleMenu}>
                                             <ShoppingCart size={30} />
-                                        </div>
+                                        </Link>
                                         <div className="flex items-center gap-1 cursor-pointer">
                                             <Heart size={30} />
                                         </div>

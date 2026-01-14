@@ -88,14 +88,15 @@ const ShopDropdown = () => {
 
     return (
         <div className="relative group" ref={dropdownRef}>
-            <button
+            <Link
+                to="/shop"
                 className="flex items-center gap-1 hover:text-[#252B42] text-[#252B42] font-medium transition-colors py-2"
                 onClick={() => setIsOpen(!isOpen)}
                 onMouseEnter={() => setIsOpen(true)}
             >
                 Shop
                 <ChevronDown size={16} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-            </button>
+            </Link>
 
             {/* Dropdown Menu */}
             {(isOpen) && (

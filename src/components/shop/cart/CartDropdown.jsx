@@ -36,10 +36,10 @@ const CartDropdown = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <div className="flex items-center gap-1 cursor-pointer hover:text-[#1a8cd8] relative py-2">
+            <Link to="/cart" className="flex items-center gap-1 cursor-pointer hover:text-[#1a8cd8] relative py-2">
                 <ShoppingCart size={16} />
                 <span>{totalItems}</span>
-            </div>
+            </Link>
 
             {/* Dropdown Content */}
             {isOpen && (
