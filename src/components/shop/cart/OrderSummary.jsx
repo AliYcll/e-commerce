@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const OrderSummary = () => {
     const { cart } = useSelector(state => state.shoppingCart);
+    const history = useHistory();
 
     // Calculate totals based on CHECKED items only
     const checkedItems = cart.filter(item => item.checked);
@@ -19,7 +21,10 @@ const OrderSummary = () => {
 
     return (
         <div className="flex flex-col gap-4">
-            <button className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm">
+            <button
+                onClick={() => history.push('/order')}
+                className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm"
+            >
                 Create Order {'>'}
             </button>
 
@@ -56,7 +61,10 @@ const OrderSummary = () => {
                 </button>
             </div>
 
-            <button className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm">
+            <button
+                onClick={() => history.push('/order')}
+                className="w-full bg-[#23A6F0] text-white py-3 rounded-md font-bold hover:bg-[#1a8cd8] transition text-sm"
+            >
                 Create Order {'>'}
             </button>
         </div>

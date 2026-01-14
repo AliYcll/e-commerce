@@ -25,7 +25,7 @@ const Header = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.client.user);
-    const useSimpleMenu = ['/team', '/pricing', '/contact', '/about', '/cart'].includes(location.pathname);
+    const useSimpleMenu = ['/team', '/pricing', '/contact', '/about'].includes(location.pathname);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);

@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCartItem, removeFromCart } from '../store/actions/shoppingCartActions';
 import OrderSummary from '../components/shop/cart/OrderSummary';
 
 const CartPage = () => {
+    const history = useHistory();
     const { cart } = useSelector(state => state.shoppingCart);
     const dispatch = useDispatch();
 
