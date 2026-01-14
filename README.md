@@ -5,6 +5,8 @@
 ![React](https://img.shields.io/badge/react-19.0-61dafb.svg?style=flat&logo=react)
 ![Redux](https://img.shields.io/badge/redux-5.0-764abc.svg?style=flat&logo=redux)
 ![Tailwind CSS](https://img.shields.io/badge/tailwindcss-4.1-38b2ac.svg?style=flat&logo=tailwindcss)
+![Vite](https://img.shields.io/badge/vite-6.0-646CFF.svg?style=flat&logo=vite&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-5.3-CA4245?style=flat&logo=react-router&logoColor=white)
 
 **Bandage** is a robust, full-featured E-commerce frontend application built to deliver a seamless shopping experience. It combines modern design principles with powerful state management to handle complex user flows like authentication, product filtering, and persistent cart operations.
 
