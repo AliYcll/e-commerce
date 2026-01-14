@@ -43,6 +43,11 @@
 - **Form Handling:** Robust validation using `react-hook-form`.
 - **Toast Notifications:** Instant feedback for user actions (success/error messages) via `react-toastify`.
 
+### 4. 📜 Order Management
+- **Order History:** Users can view their past orders, including product details and total amounts.
+- **Product Navigation:** Clickable product items in order history redirect to the respective product detail page.
+- **Localization:** Full English support and currency standardization ($).
+
 ---
 
 ## 📦 Project Structure
@@ -117,7 +122,7 @@ We use **Redux** with **Redux Thunk** for asynchronous side effects. The global 
 
 ---
 
-## � Installation & Setup
+##  Installation & Setup
 
 Prerequisites: Node.js (v18+) and npm.
 
@@ -153,6 +158,12 @@ We welcome contributions! Please follow these steps:
 2.  Fork the repo and create a `feature/your-feature-name` branch.
 3.  Commit your changes following **Conventional Commits** (e.g., `feat: add wishlist`).
 4.  Submit a **Pull Request**.
+
+---
+
+## ⚠️ Disclaimer
+
+This project is for educational purposes and was developed with the assistance of AI.
 
 ---
 
